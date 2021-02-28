@@ -1,5 +1,5 @@
 console.log("hii manan");
-
+var db = firebase.firestore();
 function bookk(bookname,authorname,description)
 {
     this.bookname=bookname;
@@ -8,6 +8,23 @@ function bookk(bookname,authorname,description)
     
     //console.log();
     console.log("book pn done");
+
+var currentuser=toString(firebase.auth().currentUser);
+// Add a new document in collection "cities"
+db.collection("BOOKS").doc(currentuser).set({
+    Bookname: bookname,
+    Author:authorname,
+    Description: description,
+   
+})
+.then(() => {
+    console.log("Document successfully written!");
+})
+.catch((error) => {
+    console.error("Error writing document: ", error);
+});
+
+
 }
 
 
@@ -62,3 +79,16 @@ let d=new displayy(bo);
 //this.book(book,author,description);
 });
 
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById(".navbar");
+
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+    if(window.pageYOffset >= sticky) {
+        navbar.classList.add("sticky");
+    } else {
+        navbar.classList.remove("sticky");
+    }
+}
